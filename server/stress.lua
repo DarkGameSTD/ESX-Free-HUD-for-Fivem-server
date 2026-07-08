@@ -1,0 +1,191 @@
+-- if Config.EnableStress then
+--     stressData = {}
+--     function IsWhitelisted(source)
+--         local player = ESX.GetPlayerFromId(source)
+--         if player then
+-- 			for _,v in pairs(Config.StressWhitelistJobs) do
+-- 				if player.job.name == v then
+-- 					return true
+-- 				end
+-- 			end
+--         end
+--         return false
+--     end
+
+	
+--     RegisterServerEvent("RV_HuD:CheckPlayerStress")
+--     AddEventHandler("RV_HuD:CheckPlayerStress", function()
+--         local src = source
+--         Wait(1500)
+--         local identifier = GetIdentifier(src)
+--         MySQL.Async.fetchAll("SELECT * FROM `"..Config.StressMysqlTable.."` WHERE identifier = @identifier ",{["@identifier"] = identifier}, function(data)
+-- 			if data[1] == nil then
+-- 				MySQL.Async.fetchAll("INSERT INTO `"..Config.StressMysqlTable.."` (`identifier`, `stress`) VALUES ('"..identifier.."', '0')")
+-- 				stressData[identifier] = 0
+-- 				TriggerClientEvent('hud:client:UpdateStress', src, stressData[identifier])
+-- 			else
+-- 				stressData[identifier] = data[1].stress
+-- 				TriggerClientEvent('hud:client:UpdateStress', src, stressData[identifier])
+-- 			end
+-- 		end)
+--     end)
+
+--     AddEventHandler('playerDropped', function()
+--         local src = source
+--         local identifier = GetIdentifier(src)
+--         if identifier and stressData[identifier] then
+--             MySQL.Async.fetchAll("UPDATE `"..Config.StressMysqlTable.."` SET stress = '"..stressData[identifier].."' WHERE identifier = '"..identifier.."'")
+--         end        
+--     end)
+    
+--     RegisterNetEvent('hud:server:GainStress', function(amount)
+--         local src = source
+--         local identifier = GetIdentifier(src)
+--         local newStress
+--         if IsWhitelisted(src) then
+--             return
+--         end
+--         if stressData[identifier] == nil then
+--             stressData[identifier] = 0
+--         end
+--         newStress = tonumber(stressData[identifier]) + amount
+--         if newStress <= 0 then newStress = 0 end
+    
+--         if newStress > 100 then
+--             newStress = 100
+--         end
+--         stressData[identifier] = newStress
+--         -- MySQL.Async.fetchAll("UPDATE `"..Config.StressMysqlTable.."` SET stress = '"..newStress.."' WHERE identifier = '"..identifier.."'")
+--         TriggerClientEvent('hud:client:UpdateStress', src, newStress)
+--         if newStress > 0 then
+--             Config.Notification(Config.Notifications["GETTING_STRESSED"].message, Config.Notifications["GETTING_STRESSED"].type, true, src)
+--         end
+--     end)
+    
+--     RegisterNetEvent('hud:server:RelieveStress', function(amount)
+--         local src = source
+--         local identifier = GetIdentifier(src)
+    
+--         local newStress
+            
+--         if stressData[identifier] == nil then
+--             stressData[identifier] = 0
+--         end
+--         newStress = tonumber(stressData[identifier]) - amount
+--         if newStress <= 0 then newStress = 0 end
+
+--         if newStress > 100 then
+--             newStress = 100
+--         end
+--         stressData[identifier] = newStress
+--         -- MySQL.Async.fetchAll("UPDATE `"..Config.StressMysqlTable.."` SET stress = '"..newStress.."' WHERE identifier = '"..identifier.."'")
+--         TriggerClientEvent('hud:client:UpdateStress', src, newStress)
+--         if newStress > 0 then
+--             Config.Notification(Config.Notifications["RELIEVED_STRESS"].message, Config.Notifications["RELIEVED_STRESS"].type, true, src)
+--         end
+--     end)
+	
+-- 	ESX.RegisterServerCallback('Stress-System:GetStress', function(source, cb)
+-- 		local src = source
+--         local identifier = GetIdentifier(src)
+-- 		if identifier == nil then Wait(100) identifier = GetIdentifier(src) return end
+-- 		-- MySQL.Async.fetchAll('SELECT * FROM `'..Config.StressMysqlTable..'` WHERE identifier = @identifier', {['@identifier'] = identifier}, function(result)
+-- 			-- if result ~= nil then
+-- 				-- if result[1] ~= nil and result[1].stress then
+-- 					-- Stress = tonumber(result[1].stress)
+-- 					Stress = tonumber(stressData[identifier])
+-- 					cb(Stress)
+-- 				-- end
+-- 			-- end
+-- 		-- end)
+-- 	end)
+-- end
+
+
+-- ESX.RegisterUsableItem('qors', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('qors', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 100)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	-- TriggerClientEvent('Hz_Basic:playAnim', source, "wine")
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~h~Qors ~s~Khordid")
+-- end)
+
+-- ESX.RegisterUsableItem('wine', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('wine', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 20)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Basic:playAnim', source, "wine")
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~g~Sharab ~w~noshidid")
+-- end)
+-- ESX.RegisterUsableItem('beer', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('beer', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 10)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, 'Shoma 1x ~y~Abjo~s~ Noshidid')
+-- 	Citizen.Wait(1000)
+-- end)
+-- ESX.RegisterUsableItem('tequila', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('tequila', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 25)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, 'Shoma 1x ~y~Tequila~s~ Noshidid')
+-- 	Citizen.Wait(1000)
+-- end)
+-- ESX.RegisterUsableItem('vodka', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('vodka', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 35)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, 'Shoma 1x ~y~Vodka~s~ Noshidid')
+-- 	Citizen.Wait(1000)
+-- end)
+-- ESX.RegisterUsableItem('whiskey', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('whiskey', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 40)
+-- 	TriggerClientEvent('Stress-System:TimeOut', source, 60)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, 'Shoma 1x ~y~Whiskey~s~ Noshidid')
+-- 	TriggerClientEvent('Hz_Basic:playAnim', source, "whiskey")
+-- 	Citizen.Wait(1000)
+-- end)
+-- ESX.RegisterUsableItem('loka', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('loka', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 10)
+-- 	TriggerClientEvent('Hz_Status:add', source, 'thirst', 100000)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~g~Abmive ~w~noshidid")
+-- end)
+-- ESX.RegisterUsableItem('soda', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('soda', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 10)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Status:add', source, 'thirst', 100000)
+-- 	TriggerClientEvent('Hz_Basic:playAnim', source, "soda")
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~g~Soda ~w~noshidid")
+-- end)
+-- ESX.RegisterUsableItem('coffee', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('coffee', 1)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 40)
+-- 	TriggerClientEvent('Stress-System:TimeOut', source, 60)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Hz_Status:add', source, 'thirst', 200000)
+-- 	TriggerClientEvent('Hz_Basic:playAnim', source, "coffee")
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~g~Coffee ~w~noshidid")
+-- end)
+-- ESX.RegisterUsableItem('tea', function(source)
+-- 	local xPlayer = ESX.GetPlayerFromId(source)
+-- 	xPlayer.removeInventoryItem('tea', 1)
+-- 	TriggerClientEvent('Hz_Basic:onDrink', source)
+-- 	TriggerClientEvent('Stress-System:RemoveStress', source, 40)
+-- 	TriggerClientEvent('Hz_Status:add', source, 'thirst', 200000)
+-- 	TriggerClientEvent('Hz_Basic:playAnim', source, "tea")
+-- 	TriggerClientEvent('Hz_Notification:SendNotification', source, "Shoma yek ~g~Chaee ~w~noshidid")
+-- end)
