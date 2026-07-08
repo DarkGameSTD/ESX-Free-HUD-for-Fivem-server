@@ -1,4 +1,4 @@
-# RV_HuD
+# DarkGamin HuD [Free]
 
 A modern, configurable FiveM HUD resource for ESX servers. RV_HuD includes a full player HUD, vehicle HUD, multiple speedometer styles, in-game HUD settings, media playlists, nitro, seatbelt, cruise control, safezone notifications, stress support, and quick waypoint shortcuts.
 
