@@ -1,6 +1,6 @@
 <div align="center">
 
-# DarkGamin HuD [Free]
+# [Free] Fivem DarkGamin HuD 
 
 
 [![DarkGamin Website](https://img.shields.io/badge/Website-DarkGamin-blue?style=for-the-badge&logo=google-chrome)](https://dark-game.ir)
