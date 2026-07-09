@@ -1,4 +1,20 @@
+<div align="center">
+
 # DarkGamin HuD [Free]
+
+
+[![DarkGamin Website](https://img.shields.io/badge/Website-DarkGamin-blue?style=for-the-badge&logo=google-chrome)](https://dark-game.ir)
+
+</div>
+
+<div align="center">
+
+### Screenshots
+
+<img src="https://s34.picofile.com/file/8490858334/image.png" alt="DarkGamin HuD" width="600" style="border-radius: 10px;">
+
+</div>
+
 
 A modern, configurable FiveM HUD resource for ESX servers. RV_HuD includes a full player HUD, vehicle HUD, multiple speedometer styles, in-game HUD settings, media playlists, nitro, seatbelt, cruise control, safezone notifications, stress support, and quick waypoint shortcuts.
 
