@@ -184,4 +184,10 @@ RV_HuD/
 
 ## License
 
-No license file is included. Add a license before publishing publicly if you want to define how others may use, modify, or redistribute this resource.
+This resource is released under the **No-Resell & Attribution License**.
+
+- You are allowed to use this resource on your server.
+- You are allowed to modify the code for your own needs.
+- **You are NOT allowed to sell this resource, or any part of it.**
+- **You are NOT allowed to claim this work as your own.**
+- You must keep the original credits intact.
